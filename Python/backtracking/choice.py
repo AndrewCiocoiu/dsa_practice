@@ -4,21 +4,19 @@ def choice(n: int, k: int):
     total = 0
     results: list[list[int]] = []
 
-    def bk(path: list[int]):
+    def bk(path: list[int], start: int):
         nonlocal total
         if len(path) == k:
             results.append(path[:])
             total += 1
             return
         
-        for i in range(n):
-            if i not in path:
-                if not path or i > path[-1]:
+        for i in range(start, n + 1):
                     path.append(i)
-                    bk(path)
+                    bk(path, i + 1)
                     path.pop()
 
-    bk([])
+    bk([], 1)
     return (results, total)
 
 ways, total = choice(5, 3)
