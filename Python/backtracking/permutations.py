@@ -1,20 +1,19 @@
-def permutations(nums: list[int]):
+def permutations(nums: list[int]) -> None:
+    def backtrack(curr: list[int], choices: list[int]) -> None:
+        if not choices:
+            print(curr)
 
-    def bk(path: list[int], available: list[int]):
-        if not available:
-            print(path)
-        
-        for i in range(len(available)):
-            choice = available[i]
+        for i in range(len(choices)):
+            choice = choices[i]
+            curr.append(choice)
+    
+            next_choices = choices[:i] + choices[i + 1:]
 
-            path.append(choice)
+            backtrack(curr, next_choices)
 
-            next_available = available[:i] + available[i+1:]
-            bk(path, next_available)
-
-            path.pop()
-
-    bk([], nums)
+            curr.pop()
+    
+    backtrack([], nums)
 
 
 permutations([1, 2, 3])
